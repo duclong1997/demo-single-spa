@@ -1,0 +1,77 @@
+single-spa: là framework nhằm mục đích kết hợp với nhau hoặc nhiều application ở trong 1 ứng dụng frontend. chia nhỏ màn hình ra thành nhiều component (với mỗi component sẽ có thể được sử dụng bởi 1 loại framework khác)
+-lợi ích có thể tích hợp multi framework (vue, reactjs, angular).
+-deploy your microfrontend không phụ thuộc.
+-sử dụng viết code với framework mới mà không cần viết lại ứng dụng đã tồn tại.
+-lazy load để cải thiện thời gian tải.
+
+một app sẽ gồm các thành phần:
+1.single-spa root config:
+-name
+-function load code application
+-function determine khi application được active
+
+2.application: là các single page app. ở trong modules.
+chịu trách nhiện hiển thị màn hình
+
+microfrontend có 3 loại:
+1.single-spa application: dùng để render component for set router
+đối với single-spa application:
+lyfecycle:
+loaded
+bootstrapped (initialized)
+mounted
+unmounted
+unloaded
+lưu ý: với bootstrapped(initialized), mounted, unmounted là bắt buộc, với unloaded là option.
+mỗi lyfecycle return promise, hoặc function async
+nếu có 1 array function được export, thì các function sẽ được called one by one.
+đợi đến khi 1 function resolve thì đến cái tiếp theo.
+nếu single-spa không được start, thì application sẽ không được load, bootstrapped, mounted
+
+2.single-spa parcels: dùng để render component không có router.
+được sử dụng như register application, nhưng được mounted cách thủ công.
+có thẻ là application lớn, có thể component nhỏ, và được viế bất cứ ngôn ngữ nào.
+có thể custom và manage lyfecycle 
+chỉ nên dùng nếu có nhiều framework.
+
+3.utility modules: dùng để chia sẻ logic javascript không thực hiện render component
+là một module javascript trong brower, không phải là single-spa applcation or parcel.
+mục đích để các micro khác sử dụng.
+-thường được sử dụng với service notify
+-styleguid
+-error tracking service
+-authorization service
+-data fetching
+
+single-spa: làm việc với ES5, ES6, typescript, webpack,...
+làm việc trên chrome, firefox, safari, edge, iE11
+
+install global:
+npm i --global create-single-spa
+or
+yarn add global create-single-spa
+-> có thể sử dụng command: create-single-spa
+
+không sử dụng với global:
+yarn create single-spa
+npm init create single-spa
+npx create-single-spa
+có thể thêm option:
+--framework (react, vue, angular)
+thêm:
+--moduleType (root-config, app-parcel, util-module) (xác định lại application)
+thêm:
+--dir my-dir (đường dẫn chứa application)
+
+tích hợp ant design in angular:
+yarn add ng-zorro-antd
+
+import trong file style.css:
+@import "~ng-zorro-antd/style/index.min.css"; /* Import base styles */
+@import "~ng-zorro-antd/button/style/index.min.css";  /* Import one component's styles */
+
+lưu ý:
+application cần tạo file: set-public-path.ts với typescript
+hoặc set-public-path.js với javascript
+nhằm mục đích tạo public path để root-config có thể kết nối dược đến các application.
+
