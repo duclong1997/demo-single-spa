@@ -1,11 +1,10 @@
-import { SharesModule } from './../shares/shares.module';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { EmployeeRoutingModule } from './employee-routing.module';
-import { EmployeeListComponent } from './employee-list/employee-list.component';
+import { NgModule } from '@angular/core';
 import { LayoutModule } from '../layout/layout.module';
+import { SharesModule } from './../shares/shares.module';
 import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
+import { EmployeeListComponent } from './employee-list/employee-list.component';
+import { EmployeeRoutingModule } from './employee-routing.module';
 
 @NgModule({
   declarations: [EmployeeListComponent, EmployeeDetailComponent],

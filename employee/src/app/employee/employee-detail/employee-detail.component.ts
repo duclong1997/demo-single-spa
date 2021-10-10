@@ -3,13 +3,12 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-employee-detail',
   templateUrl: './employee-detail.component.html',
-  styleUrls: ['./employee-detail.component.scss']
+  styleUrls: ['./employee-detail.component.scss'],
 })
 export class EmployeeDetailComponent implements OnInit {
+  customEditIconStr = 'Custom edit icon and tooltip text.';
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

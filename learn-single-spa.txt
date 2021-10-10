@@ -75,3 +75,51 @@ application cần tạo file: set-public-path.ts với typescript
 hoặc set-public-path.js với javascript
 nhằm mục đích tạo public path để root-config có thể kết nối dược đến các application.
 
+xử lý với img static:
+tạo pipe: asset-url.pipe.ts
+với nội dung:
+@Pipe({ name: 'assetUrl' })
+export class AssetUrlPipe implements PipeTransform {
+  transform(value: string): string {
+    return assetUrl(`imgs/${value}`);
+  }
+}
+
+khi sử dụng:
+ <img [src]="nameImg | assetUrl" width="200px" height="200px" />
+với nameImg=<ten-img>;
+
+sử dụng với icon in ant-design:
++install:
+yarn add @ant-design/icons-angular
+or
+npm i @ant-design/icons-angular
++trong file angular.json:
+thêm: 
+{
+  "assets": [
+    {
+      "glob": "**/*",
+      "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+      "output": "/assets/"
+    }
+  ]
+}
++tạo module icon (nhằm mục đích gọi đến icon trong node_module):
+// select icon dynamic need
+const icons: IconDefinition[] = [
+  StepBackwardOutline,
+  CaretLeftOutline,
+  SettingOutline,
+  VideoCameraOutline,
+  StepForwardOutline,
+  HighlightOutline,
+  EnterOutline,
+];
+@NgModule({
+  declarations: [],
+  imports: [CommonModule, NzIconModule.forChild(icons)],
+  exports: [NzIconModule],
+})
+export class IconModule {}
+
